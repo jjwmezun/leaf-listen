@@ -18,8 +18,17 @@ module Leaf
       return content
     end
   
+    def replace_ext( path, new_ext )
+      return "#{ File.dirname( path ) }/#{ File.basename( path, '.*' ) }.#{ new_ext }"
+    end
+    
     def write_file( path, content )
       src_path_to_dist( path )
+      
+      if ( File.extname( path ) == ".haml" )
+        path = replace_ext( path, "html" )
+      end
+      
       writable = File.open( path, 'w' )
       writable << content
       writable.close()
