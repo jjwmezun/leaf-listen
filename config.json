@@ -1,0 +1,9 @@
+{
+	"transfers":
+	[
+		{
+			"from": "/src/pages/",
+			"to": "/dist/"
+		}
+	]
+}
