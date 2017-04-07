@@ -1,7 +1,7 @@
 require( "listen" )
-require_relative( 'autumn_io' )
+require_relative( 'leaf_io' )
 
-module Autumn
+module Leaf
   module Listener
     extend self
 
@@ -14,7 +14,7 @@ module Autumn
     def check_files
       puts "Checking files..."
             
-      AIO.get_file_transfers().each do | type |
+      IO.get_file_transfers().each do | type |
         dist_dir = Dir.pwd + type[ "to" ]
         src_dir  = Dir.pwd + type[ "from" ]
         
@@ -25,7 +25,7 @@ module Autumn
         
         # Recompile all src
         Dir.glob( "#{ src_dir }*" ) do | sf |
-          AIO.src_to_dist( sf )
+          IO.src_to_dist( sf )
         end
       end
     end
@@ -66,18 +66,18 @@ module Autumn
     private
       def add_or_modify( path )
         puts( "CHANGED: #{ path }" )
-        AIO.src_to_dist( path )
+        IO.src_to_dist( path )
       end
 
       def remove( path )
         puts( "DELETED: #{ path }" )
-        AIO.delete_file( path )
+        IO.delete_file( path )
       end
 
       def in_right_dir?( path )
-        relative_path = AIO.relative_path( path )
+        relative_path = IO.relative_path( path )
 
-        AIO.get_file_transfers().each do | type |
+        IO.get_file_transfers().each do | type |
           right_dir = type[ "from" ]
           if ( relative_path.start_with?( right_dir ) )
             return true

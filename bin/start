@@ -1,3 +1,0 @@
-require_relative( 'import/autumn_listener' )
-
-Autumn::Listener.start()
